@@ -1,31 +1,169 @@
 <!DOCTYPE html>
 <html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <head>
         <title>Breadcrumbs</title>
         <meta charset="utf-8">
         <style>
-            #drag {
+            body { overflow: hidden;}
+            .container {
+                display: flex; 
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            /* The switch - the box around the slider */
+            .switch {
+            position: relative;
+            float: left;
+            width: 30px;
+            height: 17px;
+            }
+            /* Hide default HTML checkbox */
+            .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            }
+            /* The slider */
+            .slider {
+            border-radius: 34px;
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+            }
+            .slider:before {
+            border-radius: 50%;
+            position: absolute;
+            content: "";
+            height: 76%;
+            width: 43%;
+            left: 8%;
+            bottom: 8%;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+            }
+            input:checked + .slider {
+            background-color: #2196F3;
+            }
+            input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+            }
+            input:checked + .slider:before {
+            -webkit-transform: translateX(100%);
+            -ms-transform: translateX(100%);
+            transform: translateX(100%);
+            } 
+            /*-------------------------------------------------------*/
+            /*Drag class stuff*/
+            .drag {
+                min-width: 125px;
                 position: absolute;
                 z-index: 9;
                 background-color: #24233D;
-                border: 1px solid #24233D;
                 text-align: center;
+                border-radius: 8px;
             }
-            #dragheader {
+            .content {
+                background-color: #24233D;
+                max-height: 0;
+                overflow:hidden;
+                transition: max-height 0.2s ease-out;
+                border-radius: 0;
+                color: white;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+            }
+            .content:-webkitscrollbar {        
+                display: none;
+            }
+            .dragpanel {
+                min-height: 30px;
                 padding: 10px;
                 z-index: 10;
                 background-color: #C70039;
-                color: #fff;
+                cursor: pointer;
+                width: 100%;
+                border: none;
+                text-align: left;
+                outline: none;
+                font-size: 15px;
+                border-radius: 8px;
+                opacity: 0.6;
+                transition: opacity 0.5s;
+                transition: border-bottom-left-radius 0.05s ease-out;
+                transition: border-bottom-right-radius 0.05s ease-out;
             }
+            .active {
+                opacity: 1;
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+            .row:hover, .dragpanel:hover {
+                opacity: 1;
+            }
+            .dragpanel:after {
+                font-weight: bold;
+                content: '\FF0B'; 
+                font-size: 16px;
+                float: right;
+                margin-left: 5px;
+            }
+            .active:after {
+            content: '\FF0D'; 
+            }
+            .row {
+                padding-top: 10px;
+                min-height: 30px;
+                background-color: #3e3d76;
+                overflow: hidden;
+                text-align: center;
+                opacity: 0.6;
+                transition: opacity 0.5s;
+                border-radius: 0;
+            }
+            .rowend {
+                padding-top: 10px;
+                min-height: 3px;
+                background-color: #3e3d76;
+                overflow: hidden;
+                text-align: center;
+                opacity: 0.6;
+                transition: opacity 0.5s;
+                margin-bottom: 5px;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius:8px;
+            }
+            /*#menu {
+                opacity: 0.6;
+                border-left: 4px solid #3e3d76;
+                border-right: 4px solid #3e3d76;
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }*/
+            /*-------------------------------------------------------*/
         </style>
     </head>
     <body style="background-color:#3D233C">
-    <div id="drag">
-        <div id="dragheader">Click here to move</div>
-        <p>Move</p>
-        <p>this</p>
-        <p>DIV</p>
+    <div id="box"class="drag" style="width: 200px;">
+        <button type="button" id="setting" class="dragpanel">Settings</button>
+        <div class="content">
+            <div class="row" type="button">Theme</div>
+            <div id="menu"class="content"><p>Hey</p></div>
+            <div class="row" type="button">Theme</div>
+            <div class="content"><p>Hey</p></div>
+            <div class="row" type="button">Theme</div>
+            <div class="content"><p>Hey</p></div>
+            <div class="rowend"></div>
         </div>
+    </div>
+
     </body>
     <script src="script.js"></script>
 </html>

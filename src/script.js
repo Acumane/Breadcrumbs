@@ -1,15 +1,40 @@
-// Make the DIV element draggable:
-dragElement(document.getElementById("drag"));
+const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
 
+// Make the DIV element draggable:
+var drag = document.getElementsByClassName("drag");
+for(var i = 0; i < drag.length; i++) {
+  dragElement(drag[i]);
+}
+//-----------------------------------------------------------------------------------
+// Settings Panel Config
+var st = document.getElementById("setting");
+window.addEventListener("keydown",function(e){
+    if (e.key === "s") 
+        st.dispatchEvent(new Event("click"));
+});
+
+
+expand(document.getElementsByClassName("dragpanel"),true);
+expand(document.getElementsByClassName("row"),false);
+
+function expand(elmnt,check) {
+  for (var i = 0; i < elmnt.length; i++) {
+    elmnt[i].addEventListener("click", function() {
+        if(check) this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight) content.style.maxHeight = null;
+        else content.style.maxHeight = 750 + "px";
+    });
+  } 
+}
+//-----------------------------------------------------------------------------------
+// Settings drag feature
 function dragElement(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id)) {
-    // if present, the header is where you move the DIV from:
-    document.getElementById(elmnt.id).onmousedown = dragMouseDown;
-  } else {
-    // otherwise, move the DIV from anywhere inside the DIV:
+  var element = document.getElementById(elmnt.id);
+  if (document.getElementById(elmnt.id)) 
     elmnt.onmousedown = dragMouseDown;
-  }
 
   function dragMouseDown(e) {
     e = e || window.event;
@@ -21,18 +46,28 @@ function dragElement(elmnt) {
     // call a function whenever the cursor moves:
     document.onmousemove = elementDrag;
   }
-
   function elementDrag(e) {
     e = e || window.event;
     e.preventDefault();
+
     // calculate the new cursor position:
     pos1 = pos3 - e.clientX;
     pos2 = pos4 - e.clientY;
     pos3 = e.clientX;
     pos4 = e.clientY;
-    // set the element's new position:
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    var varx = elmnt.offsetLeft - pos1;
+    var vary = elmnt.offsetTop - pos2;
+    var rect = element.getBoundingClientRect();
+    
+    if (varx > 0) {
+      if (rect.right < viewportWidth || pos1 > 0) elmnt.style.left = varx + "px";
+    }
+    else elmnt.style.left = "0px";
+    if (vary > 0) {
+      if (rect.bottom < viewportHeight || pos2 > 0) elmnt.style.top = vary + "px";
+    }
+    else elmnt.style.top = "-1px";
+    
   }
 
   function closeDragElement() {
@@ -41,7 +76,8 @@ function dragElement(elmnt) {
     document.onmousemove = null;
   }
 }
-
+//-----------------------------------------------------------------------------------
+/*
 chrome.history.search({
     'text': '',               // Return every history item....
     //'startTime': 604800000,  // that was accessed less than one week ago.
@@ -57,4 +93,4 @@ function(data) {
         console.log(url);
         // do whatever you want with this visited url
     }
-});
+});*/
