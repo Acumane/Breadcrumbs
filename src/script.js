@@ -10,7 +10,7 @@ for(var i = 0; i < drag.length; i++) {
 // Settings Panel Config
 var st = document.getElementById("setting");
 window.addEventListener("keydown",function(e){
-    if (e.key === "s") 
+    if (e.key === "s")
         st.dispatchEvent(new Event("click"));
 });
 

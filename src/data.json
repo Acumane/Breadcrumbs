@@ -1,0 +1,18 @@
+{
+  "nodes": [
+    {"id": "ONE", "group": 1},
+    {"id": "TWO", "group": 1},
+    {"id": "THREE", "group": 1},
+    {"id": "FOUR", "group": 4},
+    {"id": "FIVE", "group": 5},
+    {"id": "SIX", "group": 4},
+    {"id": "ORPHAN", "group": 8}
+  ],
+  "links": [
+    {"source": "ONE", "target": "TWO", "value": 1},
+    {"source": "TWO", "target": "THREE", "value": 1},
+    {"source": "THREE", "target": "FOUR", "value": 10},
+    {"source": "THREE", "target": "FIVE", "value": 3},
+    {"source": "FIVE", "target": "SIX", "value": 1}
+  ]
+}
