@@ -3,9 +3,7 @@ const viewportHeight = window.innerHeight || document.documentElement.clientHeig
 
 // Make the DIV element draggable:
 var drag = document.getElementsByClassName("drag");
-for(var i = 0; i < drag.length; i++) {
-  dragElement(drag[i]);
-}
+for(var i = 0; i < drag.length; i++) dragElement(drag[i]);
 //-----------------------------------------------------------------------------------
 // Settings Panel Config
 var st = document.getElementById("setting");
@@ -13,7 +11,6 @@ window.addEventListener("keydown",function(e){
     if (e.key === "s")
         st.dispatchEvent(new Event("click"));
 });
-
 
 expand(document.getElementsByClassName("dragpanel"),true);
 expand(document.getElementsByClassName("row"),false);
@@ -24,7 +21,10 @@ function expand(elmnt,check) {
         if(check) this.classList.toggle("active");
         var content = this.nextElementSibling;
         if (content.style.maxHeight) content.style.maxHeight = null;
-        else content.style.maxHeight = 750 + "px";
+        else {
+          if (!check) content.style.maxHeight = "150px";
+          else content.style.maxHeight = "750px";
+        }
     });
   } 
 }
@@ -76,6 +76,22 @@ function dragElement(elmnt) {
     document.onmousemove = null;
   }
 }
+//-----------------------------------------------------------------------------------
+
+var mn = document.getElementsByClassName("menu");
+for (var i = 0; i < mn.length; i++) select(mn[i]);
+
+function select(menu) {
+  var temp = menu.childNodes;
+  for (var i = 0; i < temp.length; i++) {
+    if (temp[i].nodeName == "BUTTON") {
+      temp[i].addEventListener("click", function() {
+        this.classList.toggle("select");
+      });
+    }
+  }
+}
+
 //-----------------------------------------------------------------------------------
 /*
 chrome.history.search({
