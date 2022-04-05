@@ -2,7 +2,7 @@
     "name": "Breadcrumbs",
     "version": "1.0.0",
     "description": "The definitive personal knowledge management system for the internet",
-    "manifest_version": 3,
+    "manifest_version": 2,
     "author": "Yash Kaul and Bren Paul",
     "chrome_url_overrides" : {
         "newtab": "page.html"
@@ -14,4 +14,5 @@
     "permissions": [
         "history"
     ]
+
 }
