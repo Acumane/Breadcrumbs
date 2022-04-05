@@ -4,17 +4,23 @@
     <head>
         <meta charset="utf-8">
         <title>Breadcrumbs</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans&display=swap" rel="stylesheet">
         <meta name="description" content="The definitive personal knowledge management system for the internet">
         <link rel="stylesheet" href="style.css">
+        <script src="https://kit.fontawesome.com/e88015bc70.js" crossorigin="anonymous"></script>
         <style> body { overflow: hidden; } </style>
     </head>
     <body class="main" style="background-color:#202023">
-
-
-    <div id="s_box" class="drag" style="width: 200px;">
-        <button id="setting" class="dragpanel">⚙️ Settings</button>
+    <div id="links">
+        <i class="fa-solid fa-circle-info link-icons"></i>
+        <i class="fa-brands fa-github link-icons"></i>
+    </div>
+    <div id="s_box" class="drag" style="width: 150px;">
+        <button id="setting" class="dragpanel"><i class="fa-solid fa-gear header-icon icons"></i>Settings</button>
         <div class="content">
-            <div class="row" type="button">Clusters</div>
+            <div class="row" type="button"><i class="fa-solid fa-circle-nodes icons"></i>Clusters</div>
             <div id="box1" class="content menu">
                 <button class="menubutton">TODO</button>
                 <button class="menubutton">study</button>
@@ -26,21 +32,22 @@
                 <button class="menubutton">ANIME</button>
                 <button class="menubutton">etc</button>
             </div>
-            <div class="row" type="button">?</div>
-            <div class="content"><p>???</p></div>
-            <div class="row" type="button">Themes</div>
+            <div class="row" type="button"><i class="fa-solid fa-paint-roller icons"></i>Themes</div>
             <div id="box1" class="content menu">
-                <button class="menubutton">Follow device theme</button>
+                <button class="menubutton">Device theme</button>
                 <button class="menubutton">Light</button>
                 <button class="menubutton">Dark</button>
                 <button class="menubutton">Darker</button>
                 <button class="menubutton">Pastel</button>
             </div>
+            <div class="row" type="button"><i class="fa-solid fa-ban icons"></i>Blacklist</div>
+            
+            <div id="box1" class="content menu">
+                <form><textarea>></textarea></form>
+            </div>
             <div class="rowend"></div>
         </div>
     </div>
-
-
         <script src="script.js"></script>
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.3.2/pixi.min.js"></script>
