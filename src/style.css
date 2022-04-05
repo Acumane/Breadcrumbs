@@ -161,6 +161,7 @@ content: '\FF0D';
 	border-right: 8px solid #101010;
 }
 .menubutton {
+	border-radius: 4;
 	cursor: pointer;
 	width: 100%;
 	border: none;
