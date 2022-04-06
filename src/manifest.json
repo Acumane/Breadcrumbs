@@ -12,7 +12,8 @@
         "default_title": "Breadcrumbs"
     },
     "permissions": [
-        "history"
+        "history",
+        "storage"
     ]
 
 }

@@ -1,6 +1,39 @@
 const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
 const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
 
+//-----------------------------------------------------------------------------------
+// Cache Settings 
+
+// loading
+var begin;
+startup();
+function startup() {
+  if (!begin) {
+    begin = true;
+    chrome.storage.sync.get("theme", function(result) {
+      console.log('Value currently is ' + result.theme);
+      preset = result;
+      runclick();
+    });
+  }
+}
+
+// storing
+var preset;
+function store(value) {
+  var theme = {"theme": value};
+  chrome.storage.sync.set(theme, function() {
+  console.log('Value is set to ' + theme.theme);
+});
+}
+
+// storing
+function runclick() {
+  var dest = document.getElementById(preset.theme);
+  if (dest) dest.click();
+}
+
+
 // Make the DIV element draggable:
 var drag = document.getElementsByClassName("drag");
 for(var i = 0; i < drag.length; i++) dragElement(drag[i]);
@@ -79,17 +112,32 @@ function dragElement(elmnt) {
 //-----------------------------------------------------------------------------------
 
 var mn = document.getElementsByClassName("menu");
-for (var i = 0; i < mn.length; i++) select(mn[i]);
+for (var i = 0; i < mn.length; i++) {
+  if (mn[i].classList.contains("theme") == true) select(mn[i]);
+}
 
 function select(menu) {
-  var temp = menu.childNodes;
-  for (var i = 0; i < temp.length; i++) {
-    if (temp[i].nodeName == "BUTTON") {
-      temp[i].addEventListener("click", function() {
-        this.classList.toggle("select");
-      });
+    var temp = menu.childNodes;
+    for (var i = 0; i < temp.length; i++) {
+      if (temp[i].nodeName == "BUTTON") {
+        temp[i].addEventListener("click", function() {
+          var check = false;
+          for (var j = 0; j < temp.length; j++) {
+            if (i == j) continue;
+            if (temp[j].nodeName == "BUTTON") {
+              if (temp[j].classList.toggle("select",false) != false) {
+                check = true;
+              }
+            }
+          }
+          if (!check) { 
+            store(this.id);
+            this.classList.toggle("select");
+        }
+        });
+      }
     }
-  }
+
 }
 
 //-----------------------------------------------------------------------------------
