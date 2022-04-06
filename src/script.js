@@ -10,8 +10,8 @@ startup();
 function startup() {
   if (!begin) {
     begin = true;
+    switches();
     chrome.storage.sync.get("theme", function(result) {
-      console.log('Value currently is ' + result.theme);
       preset = result;
       runclick();
     });
@@ -23,14 +23,20 @@ var preset;
 function store(value) {
   var theme = {"theme": value};
   chrome.storage.sync.set(theme, function() {
-  console.log('Value is set to ' + theme.theme);
 });
 }
 
 // storing
 function runclick() {
-  var dest = document.getElementById(preset.theme);
+  let dest = document.getElementById(preset.theme);
   if (dest) dest.click();
+}
+
+function switches() {
+  let dest = document.getElementsByClassName("switch");
+  for (var i = 0; i < dest.length; i++) {
+    dest[i].childNodes[0].defaultChecked = true;
+  }
 }
 
 
