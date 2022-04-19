@@ -1,11 +1,24 @@
+//-----------------------------------------------------------------------------------
+// variables
+
+// saving/loading
+var begin, preset;
+// dragable elements
+var drag = document.getElementsByClassName("drag");
+// settings box
+var st = document.getElementById("setting");
+// menu 
+var mn = document.getElementsByClassName("menu");
+// root
+var root = document.querySelector(':root');
+
+// viewport
 const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
 const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-
 //-----------------------------------------------------------------------------------
 // Cache Settings 
 
 // loading
-var begin;
 startup();
 function startup() {
   if (!begin) {
@@ -13,17 +26,16 @@ function startup() {
     switches();
     chrome.storage.sync.get("theme", function(result) {
       preset = result;
+      changeTheme(result);
       runclick();
     });
   }
 }
 
 // storing
-var preset;
 function store(value) {
   var theme = {"theme": value};
-  chrome.storage.sync.set(theme, function() {
-});
+  chrome.storage.sync.set(theme, function() {});
 }
 
 // storing
@@ -39,13 +51,10 @@ function switches() {
   }
 }
 
-
 // Make the DIV element draggable:
-var drag = document.getElementsByClassName("drag");
 for(var i = 0; i < drag.length; i++) dragElement(drag[i]);
 //-----------------------------------------------------------------------------------
 // Settings Panel Config
-var st = document.getElementById("setting");
 window.addEventListener("keydown",function(e){
     if (e.key === "s")
         st.dispatchEvent(new Event("click"));
@@ -117,7 +126,6 @@ function dragElement(elmnt) {
 }
 //-----------------------------------------------------------------------------------
 
-var mn = document.getElementsByClassName("menu");
 for (var i = 0; i < mn.length; i++) {
   if (mn[i].classList.contains("theme") == true) select(mn[i]);
 }
@@ -139,11 +147,54 @@ function select(menu) {
           if (!check) { 
             store(this.id);
             this.classList.toggle("select");
+            changeTheme(this.id);
         }
         });
       }
     }
 
+}
+
+function changeTheme(id) {
+  if (id == "Follow device theme") {
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      // dark theme
+      root.style.setProperty('--primary','#ed452b');
+      root.style.setProperty('--menu-fg','#3c3c42');
+      root.style.setProperty('--menu-bg',"#111112");
+    }
+    else {
+      // light theme
+    root.style.setProperty('--primary','#ed452b');
+    root.style.setProperty('--menu-fg','#3c3c42');
+    root.style.setProperty('--menu-bg',"#111112");
+    }
+  }
+  else if (id == "Light") {
+    root.style.setProperty('--primary','#ed452b');
+    root.style.setProperty('--menu-fg','#3c3c42');
+    root.style.setProperty('--menu-bg',"#111112");
+  }
+  else if (id == "Dark") {
+    root.style.setProperty('--primary','#ed452b');
+    root.style.setProperty('--menu-fg','#3c3c42');
+    root.style.setProperty('--menu-bg',"#111112");
+  }
+  else if (id == "Darker") {
+    root.style.setProperty('--primary','#ed452b');
+    root.style.setProperty('--menu-fg','#3c3c42');
+    root.style.setProperty('--menu-bg',"#111112");
+  }
+  else if (id == "Pastel") {
+    root.style.setProperty('--primary','#ff968a');
+    root.style.setProperty('--menu-fg','#ffc5bf');
+    root.style.setProperty('--menu-bg',"#ffc8a2");
+  }
+  else {
+    root.style.setProperty('--primary','#ed452b');
+    root.style.setProperty('--menu-fg','#3c3c42');
+    root.style.setProperty('--menu-bg',"#111112");
+  }
 }
 
 //-----------------------------------------------------------------------------------

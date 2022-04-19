@@ -2,6 +2,7 @@
   --primary: #ed452b;
   --menu-fg: #3c3c42;
   --menu-bg: #111112;
+  --time: 0.25s;
 }
 .link-icons {
 	color: #ffffff6e;
@@ -43,6 +44,7 @@
 	opacity: 0;
 	width: 0;
 	height: 0;
+	transition: background-color var(--time) ease-out;
 }
 .slider { /* Slider */
 	border-radius: 4px;
@@ -101,6 +103,7 @@ transform: translateX(100%);
 	color: white;
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;
+	transition: background-color var(--time) ease-out;
 }
 .dragpanel { /* Settings menu header */
 	background-color: var(--primary);
@@ -124,6 +127,7 @@ transform: translateX(100%);
 	transition: opacity 0.5s;
 	transition: border-bottom-left-radius 0.05s ease-out;
 	transition: border-bottom-right-radius 0.05s ease-out;
+	transition: background-color var(--time) ease-out;
 }
 .active, .menu {
 	border-bottom-right-radius: 0;
@@ -171,6 +175,7 @@ transform: translateX(100%);
 	border-radius: 0;
 	border-top: 1px solid #494953;
 	border-bottom: 1px solid #494953;
+	transition: background-color var(--time) ease-out;
 }
 .rowend { /* footer */
 	padding-top: 8px;
@@ -182,6 +187,7 @@ transform: translateX(100%);
 	transition: opacity 0.5s;
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius:8px;
+	transition: background-color var(--time) ease-out;
 }
 .menu {
 	overflow-y: scroll;
@@ -189,6 +195,8 @@ transform: translateX(100%);
 	transition: opacity 0.5s;
 	border-left: 8px solid var(--menu-bg);
 	border-right: 8px solid var(--menu-bg);
+	transition: border-left 0.3s ease-out;
+	transition: border-right 0.3s ease-out;
 }
 .menubutton { /* items under submenu header */
 	border-radius: 4;
