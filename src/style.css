@@ -1,18 +1,45 @@
 :root { /* Global variables */
   --primary: #ed452b;
-  --menu-fg: #3c3c42;
-  --menu-bg: #111112;
-  --time: 0.25s;
+  --menu-fg: #2b2b30;
+  --menu-bg: #24233D;
+  --textarea-bg: #171717;
+  --canvas: #202023;
+  --submenu-bg: #111114;
+  --switch-bg: #ccc;
+  --header-text: white;
+  --primary-text: white;
+  --secondary-hover: #3c3a44; 
+  --secondary-text: #ccc;
+  --scrollbar: #555;
+  --scrollbar-hover: #888;
+  --scrollbar-bg: #252526;
+  --list-bg: #252526;
+  --switch-toggle: white;
+  --watermark: #ffffff6e; 
+  --borders: #494953;
+  --shadow: #191920;
+
+  --shade: 0.6;
+  --shade-hover: 1.0;
+  --shade-fade: 0.6;
+  --shade-fade-hover: 1.0;
+  --theme-transition: .25s;
+  --fade-time: .25s;
+}
+.canvas {
+	background-color: var(--canvas);
+	transition: background-color var(--theme-transition) ease-out;
 }
 .link-icons {
-	color: #ffffff6e;
+	color: var(--watermark);
 	padding: 11px;
 	padding-top: 6.5px;
 	float: right;
 	opacity: 0.2;
-	transition: opacity 0.5s;
 	transform-origin: center;
 	transform: scale(1.75);
+	transition: opacity 0.5s;
+	transition: color var(--theme-transition) ease-out;
 }
 .icons {
 	padding-right: 2px;	
@@ -20,13 +47,12 @@
 	transform: scale(.8);
 	padding-left: 46px;
 }
-.header-icon {
+.header-icon { /* cog */
 	padding-right: 9px;	
 	transform-origin: center;
 	transform: scale(1);
 	padding-left: 0px;
 }
-
 #links {
 	z-index: -1;
 	margin: 5px;
@@ -44,9 +70,8 @@
 	opacity: 0;
 	width: 0;
 	height: 0;
-	transition: background-color var(--time) ease-out;
 }
-.slider { /* Slider */
+.slider { /* switch background */
 	border-radius: 4px;
 	position: absolute;
 	cursor: pointer;
@@ -54,56 +79,59 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: #ccc;
-	-webkit-transition: .4s;
-	transition: .4s;
+	background-color: var(--switch-bg);
+	-webkit-transition: .2s;
+	transition: .2s;
 }
-.slider:before {
+.slider:before { /* switch toggle */
 	border-radius: 20%;
 	position: absolute;
 	content: "";
 	height: 76%;
 	width: 43%;
 	left: 8%;
-	bottom: 12%;
-	background-color: white;
-	-webkit-transition: .4s;
-	transition: .4s;
+	bottom: 13%;
+	background-color: var(--switch-toggle);
+	-webkit-transition: .2s;
+	transition: .2s;
 }
 input:checked + .slider {
-background-color: var(--primary);
+	background-color: var(--primary);
 }
 input:focus + .slider {
-box-shadow: 0 0 1px var(--primary);
+	box-shadow: 0 0 1px var(--primary);
 }
 input:checked + .slider:before {
--webkit-transform: translateX(100%);
--ms-transform: translateX(100%);
-transform: translateX(100%);
+	-webkit-transform: translateX(100%);
+	-ms-transform: translateX(100%);
+	transform: translateX(100%);
 } 
 .drag { /*Drag class stuff*/
 	min-width: 125px;
 	position: absolute;
 	z-index: 9;
 
-	background-color: #24233D;
+	background-color: var(--menu-bg);
 	text-align: center;
 	border-radius: 8px;
 
-	box-shadow: 0px 8px 10px #191920, 
-	-10px 8px 15px #202023;
+	box-shadow: 0px 8px 10px var(--shadow), 
+	-10px 8px 15px var(--canvas);
+	transition: background-color var(--theme-transition) ease-out;
+	transition: box-shadow var(--theme-transition) ease-out;
 }
-.content {
-	background-color: var(--menu-bg);
+.content { /* panel behind all rows */
+	background-color: var(--submenu-bg);
 	max-height: 0;
 	overflow:hidden;
-	transition: max-height 0.2s ease-out;
 	border-radius: 0;
 	font-family: 'IBM Plex Sans', sans-serif;
-	color: white;
+	color: var(--primary-text);
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;
-	transition: background-color var(--time) ease-out;
+	transition: max-height 0.2s ease-out;
+	transition: color var(--theme-transition) ease-out;
+	transition: background-color var(--theme-transition) ease-out;
 }
 .dragpanel { /* Settings menu header */
 	background-color: var(--primary);
@@ -113,7 +141,7 @@ transform: translateX(100%);
 	padding-bottom: 1.5px;
 	padding-left: 8px;
 	z-index: 10;
-	color: #ffffff;
+	color: var(--header-text);
 	font-family: 'IBM Plex Sans', sans-serif;
 	font-size: 13px;
 	font-weight: 500;
@@ -123,20 +151,30 @@ transform: translateX(100%);
 	border: none;
 	outline: none;
 	border-radius: 8px;
-	opacity: 0.6;
+	opacity: var(--shade-fade);
 	transition: opacity 0.5s;
-	transition: border-bottom-left-radius 0.05s ease-out;
-	transition: border-bottom-right-radius 0.05s ease-out;
-	transition: background-color var(--time) ease-out;
+	transition: color var(--theme-transition) ease-out;
+	transition: border-bottom-left-radius 0.1s ease-out;
+	transition: border-bottom-right-radius 0.1s ease-out;
+	transition: background-color var(--theme-transition) ease-out;
+	/* transition-delay: .1s; */
 }
 .active, .menu {
 	border-bottom-right-radius: 0;
 	border-bottom-left-radius: 0;
 }
 /* hover effects */
-.active, .row:hover, .dragpanel:hover, .menu:hover, .menubutton:hover, .link-icons:hover {
-	opacity: 1;
+.row:hover {
+	/* opacity: var(--shade-hover); */
+	background-color: var(--secondary-hover);
 }
+.link-icons:hover {
+	opacity: var(--shade-hover);
+}
+.active, .dragpanel:hover, .menu:hover, .menubutton:hover {
+	opacity: var(--shade-fade-hover);
+}
+
 .dragpanel:after { /* State: menu is collapsed */
 	font-weight: bold;
 	padding-bottom: 6px;
@@ -146,15 +184,11 @@ transform: translateX(100%);
 	float: right;
 }
 @-webkit-keyframes rotating {
-    from{
-        -webkit-transform: rotate(0deg);
-    }
-    to{
-        -webkit-transform: rotate(360deg);
-    }
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
 }
 .dragpanel:hover > .header-icon {
-	transform-origin: 6.6px 6.3px;
+	transform-origin: 6.5px 6px;
 	-webkit-animation: rotating 2s linear infinite;
 }
 .active:after { /* State: menu is expanded */
@@ -170,12 +204,14 @@ transform: translateX(100%);
 	background-color: var(--menu-fg);
 	overflow: hidden;
 	text-align: left;
-	opacity: 0.6;
-	transition: opacity 0.5s;
+	opacity: var(--shade);
 	border-radius: 0;
-	border-top: 1px solid #494953;
-	border-bottom: 1px solid #494953;
-	transition: background-color var(--time) ease-out;
+	border-top: 1px solid var(--borders);
+	border-bottom: 1px solid var(--borders);
+	transition: opacity 0.5s;
+	transition: background-color var(--fade-time) ease-out;
+	transition: border-top var(--theme-transition) ease-out;
+	transition: border-bottom var(--theme-transition) ease-out;
 }
 .rowend { /* footer */
 	padding-top: 8px;
@@ -183,20 +219,22 @@ transform: translateX(100%);
 	background-color: var(--menu-fg);
 	overflow: hidden;
 	text-align: center;
-	opacity: 0.6;
-	transition: opacity 0.5s;
+	opacity: var(--shade);
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius:8px;
-	transition: background-color var(--time) ease-out;
-}
-.menu {
-	overflow-y: scroll;
-	opacity: 0.6;
 	transition: opacity 0.5s;
-	border-left: 8px solid var(--menu-bg);
-	border-right: 8px solid var(--menu-bg);
+	transition: background-color var(--theme-transition/1.5) ease-out;
+}
+.menu { /* container for submenu items */
+	overflow-y: scroll;
+	opacity: var(--shade-fade);
+	border-left: 8px solid var(--submenu-bg);
+	border-right: 8px solid var(--submenu-bg);
+	transition: opacity 0.5s;
 	transition: border-left 0.3s ease-out;
 	transition: border-right 0.3s ease-out;
+	transition: opacity var(--fade-time) ease-out;
+	transition: background-color var(--theme-transition) ease-out;
 }
 .menubutton { /* items under submenu header */
 	border-radius: 4;
@@ -205,35 +243,42 @@ transform: translateX(100%);
 	border: none;
 	outline: none;
 	font-size: 10px;
-	color: white;
-	background: #252526;
-	border-bottom: .5px solid #303032;
-	opacity: 0.6;
-	transition: opacity 0.5s;
+	color: var(--primary-text);
+	background-color: var(--list-bg);
+	border-bottom: .5px solid var(--list-bg);
+	opacity: var(--shade-fade);
 	text-align: left;
 	padding: 6px;
 	padding-left: 10px;
+	line-height: -4px;
 	font-family: 'IBM Plex Mono', monospace;
+	transition: opacity 0.5s;
 	transition: border-bottom-left-radius 0.05s ease-out;
 	transition: border-bottom-right-radius 0.05s ease-out;
+	transition: opacity var(--fade-time) ease-out;
 }
 .select { /* selected items */
 	background-color: var(--primary);
+	color: var(--header-text);
 	opacity: 1;
 }
 textarea { /* text field */
+	outline: none;
+	line-height: 20px;
 	width: 100%;
-	color: white;
+	color: var(--primary-text);
 	font-size: 10px;
 	height: 100px;
 	padding: 10px 10px;
 	box-sizing: border-box;
-	border: 2px solid #1c1c1c;
-	border-radius: 4px;
-	background: #171717;
+	min-height: 70px;
+	border: 0px solid var(--textarea-bg);
+	border-radius: 0px;
+	background-color: var(--textarea-bg);
 	resize:vertical;
+	transition: background-color var(--theme-transition) ease-out;
+	transition: color var(--theme-transition) ease-out;
 }
-
 .content:-webkitscrollbar { /* scrollbar */
 	display: none;
 }
@@ -241,14 +286,18 @@ textarea { /* text field */
 	width: 5px;
 }
 ::-webkit-scrollbar-track {
-	background: #252526;
+	background-color: var(--scrollbar-bg);
+	transition: background-color var(--theme-transition) ease-out;
 }
 ::-webkit-scrollbar-thumb {
 	border-radius: 4px;
-	background: #555;
+	background-color: var(--scrollbar);
+	transition: background-color var(--theme-transition) ease-out;	
 }
 ::-webkit-scrollbar-thumb:hover {
-	background: #888;
+	background-color: var(--scrollbar-hover);
+	transition: background-color var(--theme-transition) ease-out;
+
 }
 .tooltip {
 	position: relative;
@@ -257,10 +306,10 @@ textarea { /* text field */
 .tooltip .tooltiptext { /* Tooltip body */
 	visibility: hidden;
 	width: 80px;
-	background-color: var(--menu-bg);
+	background-color: var(--submenu-bg);
 	font-family: 'IBM Plex Mono', monospace;
 	font-size: 10.5px;
-	color: #ccc;
+	color: var(--secondary-text);
 	text-align: center;
 	border-radius: 6px;
 	padding: 5px 0;
@@ -273,12 +322,12 @@ textarea { /* text field */
 .tooltip .tooltiptext::after { /* tooltip pointer */
 	content: "";
 	position: absolute;
-	top: 50%;
+	top: 17px;
 	left: 100%;
 	margin-top: -5px;
 	border-width: 5px;
 	border-style: solid;
-	border-color: transparent transparent transparent var(--menu-bg);
+	border-color: transparent transparent transparent var(--submenu-bg);
 }
 
 .tooltip:hover .tooltiptext {

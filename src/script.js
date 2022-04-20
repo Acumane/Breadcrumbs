@@ -134,8 +134,8 @@ function dragElement(elmnt) {
     
   }
   function resize() {
-    element.style.transition = "transform 0.2s ease-in-out";
-    element.style.transform = "scale(1.1)";
+    element.style.transition = "transform 0.15s ease-in-out";
+    element.style.transform = "scale(1.04)";
   }
 
   function closeDragElement() {
@@ -174,46 +174,118 @@ function select(menu) {
 
 }
 
+function changeToDark() {
+  root.style.setProperty('--shade', 0.6);
+  root.style.setProperty('--shade-hover', 1.0);
+  root.style.setProperty('--shade-fade', 0.6);
+  root.style.setProperty('--shade-fade-hover', 1.0);
+  root.style.setProperty('--primary',"#ed452b");
+  root.style.setProperty('--menu-fg',"#2b2b30");
+  root.style.setProperty('--menu-bg',"#24233D");
+  root.style.setProperty('--textarea-bg',"#171717");
+  root.style.setProperty('--canvas',"#202023");
+  root.style.setProperty('--submenu-bg',"#111114");
+  root.style.setProperty('--switch-bg',"#ccc");
+  root.style.setProperty('--header-text', "white");
+  root.style.setProperty('--primary-text',"white");
+  root.style.setProperty('--secondary-text',"#ccc");
+  root.style.setProperty('--secondary-hover', "#3c3a44");
+  root.style.setProperty('--scrollbar',"#555");
+  root.style.setProperty('--scrollbar-hover',"#888");
+  root.style.setProperty('--scrollbar-bg', "#252526");
+  root.style.setProperty('--list-bg',"#252526");
+  root.style.setProperty('--switch-toggle',"white");
+  root.style.setProperty('--watermark',"#ffffff6e");
+  root.style.setProperty('--borders',"#494953");
+  root.style.setProperty('--shadow',"#191920");
+}
+
+function changeToLight() {
+  root.style.setProperty('--shade', 1.0);
+  root.style.setProperty('--shade-hover', 0.8);
+  root.style.setProperty('--shade-fade', 0.8);
+  root.style.setProperty('--shade-fade-hover', 1.0);
+  root.style.setProperty('--primary', "#eb6056");
+  root.style.setProperty('--menu-fg', "white");
+  root.style.setProperty('--menu-bg', "#ab9edb");
+  root.style.setProperty('--textarea-bg', "#f5f8fc");
+  root.style.setProperty('--canvas', "#f1f3f5"); // done
+  root.style.setProperty('--submenu-bg', "#ddd8f1");
+  root.style.setProperty('--switch-bg', "#ccc");
+  root.style.setProperty('--header-text', "white");
+  root.style.setProperty('--primary-text', "black");
+  root.style.setProperty('--secondary-text', "black");
+  root.style.setProperty('--secondary-hover', "#eeecf8");
+  root.style.setProperty('--scrollbar', "#889");
+  root.style.setProperty('--scrollbar-hover', "#556");
+  root.style.setProperty('--scrollbar-bg', "#ccc");
+  root.style.setProperty('--list-bg',"white");
+  root.style.setProperty('--switch-toggle', "white");
+  root.style.setProperty('--watermark', "#eb6056");
+  root.style.setProperty('--borders', "#ccccdd");
+  root.style.setProperty('--shadow', "#ccccdd");
+}
+
 function changeTheme(id) {
   if (id == "Follow device theme") {
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      // dark theme
-      root.style.setProperty('--primary','#ed452b');
-      root.style.setProperty('--menu-fg','#3c3c42');
-      root.style.setProperty('--menu-bg',"#111112");
+      changeToDark();
     }
-    else {
-      // light theme
-    root.style.setProperty('--primary','#ed452b');
-    root.style.setProperty('--menu-fg','#3c3c42');
-    root.style.setProperty('--menu-bg',"#111112");
-    }
+    else { changeToLight(); }
   }
-  else if (id == "Light") {
-    root.style.setProperty('--primary','#ed452b');
-    root.style.setProperty('--menu-fg','#3c3c42');
-    root.style.setProperty('--menu-bg',"#111112");
-  }
-  else if (id == "Dark") {
-    root.style.setProperty('--primary','#ed452b');
-    root.style.setProperty('--menu-fg','#3c3c42');
-    root.style.setProperty('--menu-bg',"#111112");
-  }
-  else if (id == "Darker") {
-    root.style.setProperty('--primary','#ed452b');
-    root.style.setProperty('--menu-fg','#3c3c42');
-    root.style.setProperty('--menu-bg',"#111112");
+  else if (id == "Light") { changeToLight(); }
+  else if (id == "Dark") { changeToDark(); }
+  else if (id == "Twilight") {
+  root.style.setProperty('--shade', 0.6);
+  root.style.setProperty('--shade-hover', 1.0);
+  root.style.setProperty('--shade-fade', 0.6);
+  root.style.setProperty('--shade-fade-hover', 1.0);
+  root.style.setProperty('--primary',"#ab9edb"); // D9534F, f2473f
+  root.style.setProperty('--menu-fg',"#323558");
+  root.style.setProperty('--menu-bg',"#24233D");
+  root.style.setProperty('--textarea-bg',"#171717");
+  root.style.setProperty('--canvas',"#0c0c15");
+  root.style.setProperty('--submenu-bg',"#000000");
+  root.style.setProperty('--switch-bg',"#ccc");
+  root.style.setProperty('--header-text', "white");
+  root.style.setProperty('--primary-text',"#ffffff");
+  root.style.setProperty('--secondary-text',"#ccc");
+  root.style.setProperty('--secondary-hover', "#3c3a44");
+  root.style.setProperty('--scrollbar',"#555");
+  root.style.setProperty('--scrollbar-hover',"#888");
+  root.style.setProperty('--scrollbar-bg', "#252526");
+  root.style.setProperty('--list-bg',"#252526");
+  root.style.setProperty('--switch-toggle',"#ffffff");
+  root.style.setProperty('--watermark',"#ffffff6e");
+  root.style.setProperty('--borders',"#494953");
+  root.style.setProperty('--shadow',"#101010");
   }
   else if (id == "Pastel") {
-    root.style.setProperty('--primary','#ff968a');
-    root.style.setProperty('--menu-fg','#ffc5bf');
-    root.style.setProperty('--menu-bg',"#ffc8a2");
+  root.style.setProperty('--shade', 1.0);
+  root.style.setProperty('--shade-hover', 0.8);
+  root.style.setProperty('--shade-fade', 0.8);
+  root.style.setProperty('--shade-fade-hover', 1.0);
+  root.style.setProperty('--primary', "#4a5f98");
+  root.style.setProperty('--menu-fg', "white");
+  root.style.setProperty('--menu-bg', "#ab9edb");
+  root.style.setProperty('--textarea-bg', "#f5f8fc");
+  root.style.setProperty('--canvas', "#f1f3f5"); // done
+  root.style.setProperty('--submenu-bg', "#ddd8f1");
+  root.style.setProperty('--switch-bg', "#ccc");
+  root.style.setProperty('--header-text', "white");
+  root.style.setProperty('--primary-text', "black");
+  root.style.setProperty('--secondary-text', "black");
+  root.style.setProperty('--secondary-hover', "#eeecf8");
+  root.style.setProperty('--scrollbar', "#889");
+  root.style.setProperty('--scrollbar-hover', "#556");
+  root.style.setProperty('--scrollbar-bg', "#ccc");
+  root.style.setProperty('--list-bg',"white");
+  root.style.setProperty('--switch-toggle', "white");
+  root.style.setProperty('--watermark', "#4a5f98");
+  root.style.setProperty('--borders', "#ccccdd");
+  root.style.setProperty('--shadow', "#ccccdd");
   }
-  else {
-    root.style.setProperty('--primary','#ed452b');
-    root.style.setProperty('--menu-fg','#3c3c42');
-    root.style.setProperty('--menu-bg',"#111112");
-  }
+  else { changeToDark(); }
 }
 
 //-----------------------------------------------------------------------------------
