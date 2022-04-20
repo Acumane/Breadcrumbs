@@ -43,8 +43,10 @@ function startup() {
     switches();
     chrome.storage.sync.get("theme", function(result) {
       preset = result;
-      changeTheme(result);
+      console.log(result);
       runclick();
+      changeTheme(result.theme);
+
     });
   }
 }
@@ -108,6 +110,7 @@ function dragElement(elmnt) {
   }
   function elementDrag(e) {
     isDrag = true;
+    resize();
     e = e || window.event;
     e.preventDefault();
 
@@ -130,15 +133,21 @@ function dragElement(elmnt) {
     else elmnt.style.top = "-1px";
     
   }
+  function resize() {
+    element.style.transition = "transform 0.2s ease-in-out";
+    element.style.transform = "scale(1.1)";
+  }
 
   function closeDragElement() {
     // stop moving when mouse button is released:
-
-    setTimeout(function(){isDrag = false;document.onmouseup = null;document.onmousemove = null;},10);
+    setTimeout(function(){
+      element.style.transform = "scale(1.0)";
+      isDrag = false;
+      document.onmouseup = null;
+      document.onmousemove = null;},10);
   }
 }
 //-----------------------------------------------------------------------------------
-
 
 function select(menu) {
     var temp = menu.childNodes;
