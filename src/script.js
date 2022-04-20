@@ -3,12 +3,29 @@
 
 // saving/loading
 var begin, preset;
-// dragable elements
+// Make the DIV element draggable:
+var isDrag = false;
 var drag = document.getElementsByClassName("drag");
-// settings box
+for(var i = 0; i < drag.length; i++) dragElement(drag[i]);
+// Settings Panel Config
 var st = document.getElementById("setting");
+window.addEventListener("keydown",function(e){
+if (document.activeElement.nodeName != 'TEXTAREA'
+    && document.activeElement.nodeName != 'INPUT'
+    && e.key === "s") st.dispatchEvent(new Event("click"));
+});
 // menu 
 var mn = document.getElementsByClassName("menu");
+for (var i = 0; i < mn.length; i++) {
+  if (mn[i].classList.contains("theme") == true) select(mn[i]);
+}
+// textbox
+var isTextHover = false;
+var txt = document.getElementsByClassName("text");
+for (var i = 0; i < txt.length; i++) {
+  txt[i].addEventListener("mouseleave", function() {isTextHover = false;});
+  txt[i].addEventListener("mouseover", function() {isTextHover = true;});
+}
 // root
 var root = document.querySelector(':root');
 
@@ -50,15 +67,7 @@ function switches() {
     dest[i].childNodes[0].defaultChecked = true;
   }
 }
-
-// Make the DIV element draggable:
-for(var i = 0; i < drag.length; i++) dragElement(drag[i]);
 //-----------------------------------------------------------------------------------
-// Settings Panel Config
-window.addEventListener("keydown",function(e){
-    if (e.key === "s")
-        st.dispatchEvent(new Event("click"));
-});
 
 expand(document.getElementsByClassName("dragpanel"),true);
 expand(document.getElementsByClassName("row"),false);
@@ -66,6 +75,7 @@ expand(document.getElementsByClassName("row"),false);
 function expand(elmnt,check) {
   for (var i = 0; i < elmnt.length; i++) {
     elmnt[i].addEventListener("click", function() {
+        if (!isDrag) {
         if(check) this.classList.toggle("active");
         var content = this.nextElementSibling;
         if (content.style.maxHeight) content.style.maxHeight = null;
@@ -73,6 +83,7 @@ function expand(elmnt,check) {
           if (!check) content.style.maxHeight = "150px";
           else content.style.maxHeight = "750px";
         }
+      }
     });
   } 
 }
@@ -81,10 +92,10 @@ function expand(elmnt,check) {
 function dragElement(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
   var element = document.getElementById(elmnt.id);
-  if (document.getElementById(elmnt.id)) 
-    elmnt.onmousedown = dragMouseDown;
+  if (document.getElementById(elmnt.id)) elmnt.onmousedown = dragMouseDown;
 
   function dragMouseDown(e) {
+    if (!isTextHover) {
     e = e || window.event;
     e.preventDefault();
     // get the mouse cursor position at startup:
@@ -93,8 +104,10 @@ function dragElement(elmnt) {
     document.onmouseup = closeDragElement;
     // call a function whenever the cursor moves:
     document.onmousemove = elementDrag;
+    }
   }
   function elementDrag(e) {
+    isDrag = true;
     e = e || window.event;
     e.preventDefault();
 
@@ -120,15 +133,12 @@ function dragElement(elmnt) {
 
   function closeDragElement() {
     // stop moving when mouse button is released:
-    document.onmouseup = null;
-    document.onmousemove = null;
+
+    setTimeout(function(){isDrag = false;document.onmouseup = null;document.onmousemove = null;},10);
   }
 }
 //-----------------------------------------------------------------------------------
 
-for (var i = 0; i < mn.length; i++) {
-  if (mn[i].classList.contains("theme") == true) select(mn[i]);
-}
 
 function select(menu) {
     var temp = menu.childNodes;
