@@ -1,10 +1,11 @@
 :root { /* Global variables */
   --primary: #ed452b;
+  --primary-hover: #f79286;
   --menu-fg: #2b2b30;
   --menu-bg: #24233D;
   --textarea-bg: #171717;
   --canvas: #202023;
-  --submenu-bg: #111114;
+  --submenu-bg: #121114;
   --switch-bg: #ccc;
   --header-text: white;
   --primary-text: white;
@@ -12,8 +13,8 @@
   --secondary-text: #ccc;
   --scrollbar: #555;
   --scrollbar-hover: #888;
-  --scrollbar-bg: #252526;
-  --list-bg: #252526;
+  --scrollbar-bg: #252427;
+  --list-bg: #252427;
   --switch-toggle: white;
   --watermark: #ffffff6e; 
   --borders: #494953;
@@ -165,7 +166,6 @@ input:checked + .slider:before {
 }
 /* hover effects */
 .row:hover {
-	/* opacity: var(--shade-hover); */
 	background-color: var(--secondary-hover);
 }
 .link-icons:hover {
@@ -174,7 +174,10 @@ input:checked + .slider:before {
 .active, .dragpanel:hover, .menu:hover, .menubutton:hover {
 	opacity: var(--shade-fade-hover);
 }
-
+.menubutton:hover {
+	border-top: .2px solid var(--borders);
+	border-bottom: .2px solid var(--borders);
+}
 .dragpanel:after { /* State: menu is collapsed */
 	font-weight: bold;
 	padding-bottom: 6px;
@@ -208,8 +211,8 @@ input:checked + .slider:before {
 	border-radius: 0;
 	border-top: 1px solid var(--borders);
 	border-bottom: 1px solid var(--borders);
-	transition: opacity 0.5s;
-	transition: background-color var(--fade-time) ease-out;
+	/* transition: background-color var(--fade-time), border-top .1s, border-bottom .1s;
+	transition-timing-function: ease-out; */
 	transition: border-top var(--theme-transition) ease-out;
 	transition: border-bottom var(--theme-transition) ease-out;
 }
@@ -222,19 +225,14 @@ input:checked + .slider:before {
 	opacity: var(--shade);
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius:8px;
-	transition: opacity 0.5s;
-	transition: background-color var(--theme-transition/1.5) ease-out;
 }
 .menu { /* container for submenu items */
 	overflow-y: scroll;
 	opacity: var(--shade-fade);
 	border-left: 8px solid var(--submenu-bg);
 	border-right: 8px solid var(--submenu-bg);
-	transition: opacity 0.5s;
-	transition: border-left 0.3s ease-out;
-	transition: border-right 0.3s ease-out;
 	transition: opacity var(--fade-time) ease-out;
-	transition: background-color var(--theme-transition) ease-out;
+	/* transition: background-color var(--theme-transition) ease-out; */
 }
 .menubutton { /* items under submenu header */
 	border-radius: 4;
@@ -245,6 +243,7 @@ input:checked + .slider:before {
 	font-size: 10px;
 	color: var(--primary-text);
 	background-color: var(--list-bg);
+	border-top: .5px solid var(--list-bg);
 	border-bottom: .5px solid var(--list-bg);
 	opacity: var(--shade-fade);
 	text-align: left;
@@ -252,16 +251,21 @@ input:checked + .slider:before {
 	padding-left: 10px;
 	line-height: -4px;
 	font-family: 'IBM Plex Mono', monospace;
-	transition: opacity 0.5s;
-	transition: border-bottom-left-radius 0.05s ease-out;
-	transition: border-bottom-right-radius 0.05s ease-out;
 	transition: opacity var(--fade-time) ease-out;
 }
 .select { /* selected items */
 	background-color: var(--primary);
 	color: var(--header-text);
 	opacity: 1;
+	border-top: .5px solid var(--primary);
+	border-bottom: .5px solid var(--primary);
 }
+
+.select:hover {
+	border-top: .5px solid var(--primary-hover);
+	border-bottom: .5px solid var(--primary-hover);
+}
+
 textarea { /* text field */
 	outline: none;
 	line-height: 20px;

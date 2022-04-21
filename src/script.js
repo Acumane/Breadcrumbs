@@ -180,11 +180,12 @@ function changeToDark() {
   root.style.setProperty('--shade-fade', 0.6);
   root.style.setProperty('--shade-fade-hover', 1.0);
   root.style.setProperty('--primary',"#ed452b");
+  root.style.setProperty('--primary-hover',"#f79286");
   root.style.setProperty('--menu-fg',"#2b2b30");
   root.style.setProperty('--menu-bg',"#24233D");
   root.style.setProperty('--textarea-bg',"#171717");
   root.style.setProperty('--canvas',"#202023");
-  root.style.setProperty('--submenu-bg',"#111114");
+  root.style.setProperty('--submenu-bg',"#121114");
   root.style.setProperty('--switch-bg',"#ccc");
   root.style.setProperty('--header-text', "white");
   root.style.setProperty('--primary-text',"white");
@@ -192,8 +193,8 @@ function changeToDark() {
   root.style.setProperty('--secondary-hover', "#3c3a44");
   root.style.setProperty('--scrollbar',"#555");
   root.style.setProperty('--scrollbar-hover',"#888");
-  root.style.setProperty('--scrollbar-bg', "#252526");
-  root.style.setProperty('--list-bg',"#252526");
+  root.style.setProperty('--scrollbar-bg', "#252427");
+  root.style.setProperty('--list-bg',"#252427");
   root.style.setProperty('--switch-toggle',"white");
   root.style.setProperty('--watermark',"#ffffff6e");
   root.style.setProperty('--borders',"#494953");
@@ -206,6 +207,7 @@ function changeToLight() {
   root.style.setProperty('--shade-fade', 0.8);
   root.style.setProperty('--shade-fade-hover', 1.0);
   root.style.setProperty('--primary', "#eb6056");
+  root.style.setProperty('--primary-hover', "#ed452b");
   root.style.setProperty('--menu-fg', "white");
   root.style.setProperty('--menu-bg', "#ab9edb");
   root.style.setProperty('--textarea-bg', "#f5f8fc");
@@ -241,6 +243,7 @@ function changeTheme(id) {
   root.style.setProperty('--shade-fade', 0.6);
   root.style.setProperty('--shade-fade-hover', 1.0);
   root.style.setProperty('--primary',"#ab9edb"); // D9534F, f2473f
+  root.style.setProperty('--primary-hover',"green");
   root.style.setProperty('--menu-fg',"#323558");
   root.style.setProperty('--menu-bg',"#24233D");
   root.style.setProperty('--textarea-bg',"#171717");
@@ -266,6 +269,7 @@ function changeTheme(id) {
   root.style.setProperty('--shade-fade', 0.8);
   root.style.setProperty('--shade-fade-hover', 1.0);
   root.style.setProperty('--primary', "#4a5f98");
+  root.style.setProperty('--primary-hover',"green");
   root.style.setProperty('--menu-fg', "white");
   root.style.setProperty('--menu-bg', "#ab9edb");
   root.style.setProperty('--textarea-bg', "#f5f8fc");
