@@ -8,18 +8,33 @@ var isDrag = false;
 var drag = document.getElementsByClassName("drag");
 for(var i = 0; i < drag.length; i++) dragElement(drag[i]);
 // Settings Panel Config
+// id's st = setting, cl = clusters, th = theme, bl = blacklist 
+// takes care of settings box and subrows.
 var st = document.getElementById("setting");
+var cl = document.getElementById("Clusters");
+var th = document.getElementById("Themes");
+var bl = document.getElementById("Blacklist");
+
+// adds keydown event listener for global keybinds.
 window.addEventListener("keydown",function(e){
 if (document.activeElement.nodeName != 'TEXTAREA'
-    && document.activeElement.nodeName != 'INPUT'
-    && e.key === "s") st.dispatchEvent(new Event("click"));
+    && document.activeElement.nodeName != 'INPUT') {
+    if (e.key === "s") st.dispatchEvent(new Event("click"));
+    if (st.classList.contains("active")) {
+      if (e.key === "c") cl.dispatchEvent(new Event("click"));
+      if (e.key === "b") bl.dispatchEvent(new Event("click"));
+      if (e.key === "t") th.dispatchEvent(new Event("click"));
+      }
+    }
 });
 // menu 
+// uses select function on each element of menu (documentation below).
 var mn = document.getElementsByClassName("menu");
 for (var i = 0; i < mn.length; i++) {
   if (mn[i].classList.contains("theme") == true) select(mn[i]);
 }
 // textbox
+// manages isTextHover (global boolean for hover over textbox elements).
 var isTextHover = false;
 var txt = document.getElementsByClassName("text");
 for (var i = 0; i < txt.length; i++) {
@@ -36,6 +51,8 @@ const viewportHeight = window.innerHeight || document.documentElement.clientHeig
 // Cache Settings 
 
 // loading
+// runs on startup of newpage and will cache in previously
+// used themes and clusters.
 startup();
 function startup() {
   if (!begin) {
@@ -43,26 +60,27 @@ function startup() {
     switches();
     chrome.storage.sync.get("theme", function(result) {
       preset = result;
-      console.log(result);
       runclick();
       changeTheme(result.theme);
-
     });
   }
 }
 
 // storing
+// stores our theme data into the chrome storage API.
 function store(value) {
   var theme = {"theme": value};
   chrome.storage.sync.set(theme, function() {});
 }
 
 // storing
+// finds the respective theme element and activates it.
 function runclick() {
   let dest = document.getElementById(preset.theme);
   if (dest) dest.click();
 }
 
+// startupt for switches, finds all switches and defaults to active state.
 function switches() {
   let dest = document.getElementsByClassName("switch");
   for (var i = 0; i < dest.length; i++) {
@@ -70,10 +88,12 @@ function switches() {
   }
 }
 //-----------------------------------------------------------------------------------
-
+// setup for expand functionality for rows and dragpanel div.
 expand(document.getElementsByClassName("dragpanel"),true);
 expand(document.getElementsByClassName("row"),false);
 
+// function allows the given element to expand and shrink based off of click
+// and keydown event.
 function expand(elmnt,check) {
   for (var i = 0; i < elmnt.length; i++) {
     elmnt[i].addEventListener("click", function() {
@@ -91,6 +111,8 @@ function expand(elmnt,check) {
 }
 //-----------------------------------------------------------------------------------
 // Settings drag feature
+// main dragable elements have dragElement applied to it and keeps track
+// of box pos and cursor pos in order to manage dragability.
 function dragElement(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
   var element = document.getElementById(elmnt.id);
@@ -139,7 +161,7 @@ function dragElement(elmnt) {
   }
 
   function closeDragElement() {
-    // stop moving when mouse button is released:
+    // stop moving when mouse button is released with delay.
     setTimeout(function(){
       element.style.transform = "scale(1.0)";
       isDrag = false;
@@ -148,13 +170,16 @@ function dragElement(elmnt) {
   }
 }
 //-----------------------------------------------------------------------------------
-
+// select takes in a menu div and will add clickable events that check for 
+// exclusivity (in other words a group toggleable element list).
 function select(menu) {
     var temp = menu.childNodes;
     for (var i = 0; i < temp.length; i++) {
+      // error check for button vs other element types.
       if (temp[i].nodeName == "BUTTON") {
         temp[i].addEventListener("click", function() {
           var check = false;
+          // check for other elements.
           for (var j = 0; j < temp.length; j++) {
             if (i == j) continue;
             if (temp[j].nodeName == "BUTTON") {
@@ -163,6 +188,7 @@ function select(menu) {
               }
             }
           }
+          // if unique, stores id in chrome storage and toggles.
           if (!check) { 
             store(this.id);
             this.classList.toggle("select");
@@ -174,18 +200,18 @@ function select(menu) {
 
 }
 
+// generic dark theme presets.
 function changeToDark() {
   root.style.setProperty('--shade', 0.6);
   root.style.setProperty('--shade-hover', 1.0);
   root.style.setProperty('--shade-fade', 0.6);
   root.style.setProperty('--shade-fade-hover', 1.0);
   root.style.setProperty('--primary',"#ed452b");
-  root.style.setProperty('--primary-hover',"#f79286");
   root.style.setProperty('--menu-fg',"#2b2b30");
   root.style.setProperty('--menu-bg',"#24233D");
   root.style.setProperty('--textarea-bg',"#171717");
   root.style.setProperty('--canvas',"#202023");
-  root.style.setProperty('--submenu-bg',"#121114");
+  root.style.setProperty('--submenu-bg',"#111114");
   root.style.setProperty('--switch-bg',"#ccc");
   root.style.setProperty('--header-text', "white");
   root.style.setProperty('--primary-text',"white");
@@ -193,21 +219,20 @@ function changeToDark() {
   root.style.setProperty('--secondary-hover', "#3c3a44");
   root.style.setProperty('--scrollbar',"#555");
   root.style.setProperty('--scrollbar-hover',"#888");
-  root.style.setProperty('--scrollbar-bg', "#252427");
-  root.style.setProperty('--list-bg',"#252427");
+  root.style.setProperty('--scrollbar-bg', "#252526");
+  root.style.setProperty('--list-bg',"#252526");
   root.style.setProperty('--switch-toggle',"white");
   root.style.setProperty('--watermark',"#ffffff6e");
   root.style.setProperty('--borders',"#494953");
   root.style.setProperty('--shadow',"#191920");
 }
-
+// generic light theme presets.
 function changeToLight() {
   root.style.setProperty('--shade', 1.0);
   root.style.setProperty('--shade-hover', 0.8);
   root.style.setProperty('--shade-fade', 0.8);
   root.style.setProperty('--shade-fade-hover', 1.0);
   root.style.setProperty('--primary', "#eb6056");
-  root.style.setProperty('--primary-hover', "#ed452b");
   root.style.setProperty('--menu-fg', "white");
   root.style.setProperty('--menu-bg', "#ab9edb");
   root.style.setProperty('--textarea-bg', "#f5f8fc");
@@ -227,7 +252,7 @@ function changeToLight() {
   root.style.setProperty('--borders', "#ccccdd");
   root.style.setProperty('--shadow', "#ccccdd");
 }
-
+// changeTheme will manage all theme switches from the Themes menu dropdown.
 function changeTheme(id) {
   if (id == "Follow device theme") {
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -243,7 +268,6 @@ function changeTheme(id) {
   root.style.setProperty('--shade-fade', 0.6);
   root.style.setProperty('--shade-fade-hover', 1.0);
   root.style.setProperty('--primary',"#ab9edb"); // D9534F, f2473f
-  root.style.setProperty('--primary-hover',"green");
   root.style.setProperty('--menu-fg',"#323558");
   root.style.setProperty('--menu-bg',"#24233D");
   root.style.setProperty('--textarea-bg',"#171717");
@@ -269,7 +293,6 @@ function changeTheme(id) {
   root.style.setProperty('--shade-fade', 0.8);
   root.style.setProperty('--shade-fade-hover', 1.0);
   root.style.setProperty('--primary', "#4a5f98");
-  root.style.setProperty('--primary-hover',"green");
   root.style.setProperty('--menu-fg', "white");
   root.style.setProperty('--menu-bg', "#ab9edb");
   root.style.setProperty('--textarea-bg', "#f5f8fc");
