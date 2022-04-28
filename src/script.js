@@ -20,6 +20,9 @@ window.addEventListener("keydown",function(e){
 if (document.activeElement.nodeName != 'TEXTAREA'
     && document.activeElement.nodeName != 'INPUT') {
     if (e.key === "s") st.dispatchEvent(new Event("click"));
+    
+    // check that c/b/t can only be used when box is open 
+    // (keys cannot be opened or closed when the box is shut)
     if (st.classList.contains("active")) {
       if (e.key === "c") cl.dispatchEvent(new Event("click"));
       if (e.key === "b") bl.dispatchEvent(new Event("click"));
@@ -37,14 +40,17 @@ for (var i = 0; i < mn.length; i++) {
 // manages isTextHover (global boolean for hover over textbox elements).
 var isTextHover = false;
 var txt = document.getElementsByClassName("text");
+// updates text hover for blacklist
 for (var i = 0; i < txt.length; i++) {
   txt[i].addEventListener("mouseleave", function() {isTextHover = false;});
   txt[i].addEventListener("mouseover", function() {isTextHover = true;});
 }
-// root
+// root = css global variable folder that contains all presets
 var root = document.querySelector(':root');
 
 // viewport
+// base width and height for program that changes with screen change 
+// (needs to be refreshed on window size change implement this later?)
 const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
 const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
 //-----------------------------------------------------------------------------------
@@ -57,6 +63,8 @@ startup();
 function startup() {
   if (!begin) {
     begin = true;
+
+    // set switches, get storage and change theme to preset.
     switches();
     chrome.storage.sync.get("theme", function(result) {
       preset = result;
@@ -97,8 +105,13 @@ expand(document.getElementsByClassName("row"),false);
 function expand(elmnt,check) {
   for (var i = 0; i < elmnt.length; i++) {
     elmnt[i].addEventListener("click", function() {
+      // check for dragable element.
         if (!isDrag) {
+
+        // if selected, toggle active
         if(check) this.classList.toggle("active");
+
+        // resize elements to appropriate size
         var content = this.nextElementSibling;
         if (content.style.maxHeight) content.style.maxHeight = null;
         else {
@@ -115,6 +128,7 @@ function expand(elmnt,check) {
 // of box pos and cursor pos in order to manage dragability.
 function dragElement(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  // fetch element and verify that element exists.
   var element = document.getElementById(elmnt.id);
   if (document.getElementById(elmnt.id)) elmnt.onmousedown = dragMouseDown;
 
@@ -141,21 +155,20 @@ function dragElement(elmnt) {
     pos2 = pos4 - e.clientY;
     pos3 = e.clientX;
     pos4 = e.clientY;
+    // specify x,y and rect pos on client
     var varx = elmnt.offsetLeft - pos1;
     var vary = elmnt.offsetTop - pos2;
     var rect = element.getBoundingClientRect();
     
-    if (varx > 0) {
-      if (rect.right < viewportWidth || pos1 > 0) elmnt.style.left = varx + "px";
-    }
+    // check boundaries for collision
+    if (varx > 0) { if (rect.right < viewportWidth || pos1 > 0) elmnt.style.left = varx + "px"; }
     else elmnt.style.left = "0px";
-    if (vary > 0) {
-      if (rect.bottom < viewportHeight || pos2 > 0) elmnt.style.top = vary + "px";
-    }
+    if (vary > 0) { if (rect.bottom < viewportHeight || pos2 > 0) elmnt.style.top = vary + "px"; }
     else elmnt.style.top = "-1px";
     
   }
   function resize() {
+    // transform for pickup/drop
     element.style.transition = "transform 0.15s ease-in-out";
     element.style.transform = "scale(1.04)";
   }
@@ -181,6 +194,8 @@ function select(menu) {
           var check = false;
           // check for other elements.
           for (var j = 0; j < temp.length; j++) {
+
+            // check for appropriate button type.
             if (i == j) continue;
             if (temp[j].nodeName == "BUTTON") {
               if (temp[j].classList.toggle("select",false) != false) {
