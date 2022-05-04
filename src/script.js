@@ -109,8 +109,12 @@ function expand(elmnt,check) {
         if (!isDrag) {
 
         // if selected, toggle active
-        if(check) this.classList.toggle("active");
-
+        if(check) {
+          this.classList.toggle("active");
+          var par = document.getElementById(this.parentNode.id);
+          if (getComputedStyle(par).maxWidth == "150px") par.style.maxWidth = "107.5px";
+          else par.style.maxWidth = "150px";
+        }
         // resize elements to appropriate size
         var content = this.nextElementSibling;
         if (content.style.maxHeight) content.style.maxHeight = null;
