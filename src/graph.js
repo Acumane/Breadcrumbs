@@ -1,7 +1,7 @@
 const width    = viewportWidth,
       height   = viewportHeight,
       radius   = 4,
-      renderer = PIXI.autoDetectRenderer(width, height, { autoResize: true, resolution: 2, }),
+      renderer = PIXI.autoDetectRenderer(width-100, height, { autoResize: true, resolution: 2, }),
       stage    = new PIXI.Container(),
       lines    = new PIXI.Graphics(),
       circles  = new PIXI.Container(),
@@ -20,7 +20,8 @@ const main = () => d3.json('data.json', (error, graph) => {
   if (error) throw error;
 
   document.body.appendChild(renderer.view);
-
+  
+  
   renderer.autoResize      = true;
   renderer.backgroundColor = 0x202023;
 
