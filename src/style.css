@@ -186,15 +186,13 @@ input:checked + .slider:before {
 }
 .drag:hover > .active {
 	max-width: 150px;
+	box-shadow: 0px 8px 10px var(--shadow), 
+	-10px 8px 15px var(--canvas);
 }
 .dragpanel:hover, .active {
 	background-color: var(--primary);
 	box-shadow: inset 0 0 0 25px var(--primary);
 	width: 150px;
-}
-.drag {
-	box-shadow: 0px 8px 10px var(--shadow), 
-	-10px 8px 15px var(--canvas);
 }
 
 @-webkit-keyframes rotating {

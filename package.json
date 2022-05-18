@@ -1,8 +1,0 @@
-{
-  "devDependencies": {
-    "webpack-cli": "^4.9.2"
-  },
-  "dependencies": {
-    "@pixi/unsafe-eval": "^6.3.2"
-  }
-}
