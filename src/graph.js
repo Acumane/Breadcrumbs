@@ -1,15 +1,14 @@
 const width    = viewportWidth,
       height   = viewportHeight,
       radius   = 4,
-      renderer = PIXI.autoDetectRenderer(width-100, height, { autoResize: true, resolution: 2, }),
+      renderer = PIXI.autoDetectRenderer(width, height, {resolution: 2}),
       stage    = new PIXI.Container(),
       lines    = new PIXI.Graphics(),
       circles  = new PIXI.Container(),
       color    = d3.scaleOrdinal(d3.schemeCategory10);
-
+renderer.resize(window.innerWidth-100, window.innerHeight);
 // spawn location
 let transform = d3.zoomIdentity.translate(width / 2, height / 2);
-
 const simulation = d3.forceSimulation()
   .force('charge', d3.forceManyBody())
   .force('link',   d3.forceLink().id(d => d.id))
@@ -18,13 +17,10 @@ const simulation = d3.forceSimulation()
 
 const main = () => d3.json('data.json', (error, graph) => {
   if (error) throw error;
-
   document.body.appendChild(renderer.view);
   
-  
-  renderer.autoResize      = true;
   renderer.backgroundColor = 0x202023;
-
+  renderer.backgroundAlpha = 0;
   stage.addChild(lines);
   stage.addChild(circles);
 
