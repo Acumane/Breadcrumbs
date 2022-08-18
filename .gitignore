@@ -1,2 +1,3 @@
 /.vscode
 /src/node_modules
+ts_test/dist/background.js
