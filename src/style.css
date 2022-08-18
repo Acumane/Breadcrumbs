@@ -1,4 +1,5 @@
 :root { /* Global variables */
+	/* Style colors  */
   --primary: #ed452b;
   --primary-hover: #f79286;
   --menu-fg: #2b2b30;
@@ -19,7 +20,7 @@
   --watermark: #ffffff6e; 
   --borders: #494953;
   --shadow: #191920;
-
+ /* Shade CSS  */
   --shade: 0.6;
   --shade-hover: 1.0;
   --shade-fade: 0.6;
@@ -62,6 +63,7 @@
 	margin-top: 2;
 	float: right;
 }
+/* switch CSS in settings box */
 .switch { /* The switch (box around the slider) */
 	position: relative;
 	float: right;
@@ -86,6 +88,7 @@
 	-webkit-transition: .2s;
 	transition: .2s ease-in-out;
 }
+/* slider CSS in settings box */
 .slider:before { /* switch toggle */
 	border-radius: 20%;
 	position: absolute;
@@ -117,6 +120,7 @@ input:checked + .slider:before {
 	max-width: 107.5px;
 	transition: 0.2s;
 }
+/* content is wrapper CSS for dragpanel */
 .content { /* panel behind all rows */
 	background-color: var(--submenu-bg);
 	max-height: 0;
@@ -138,6 +142,7 @@ input:checked + .slider:before {
 	padding-bottom: 1.5px;
 	padding-left: 8px;
 	z-index: 10;
+	/* Dragpanel style colors and transitions */
 	color: var(--header-text);
 	font-family: 'IBM Plex Sans', sans-serif;
 	font-size: 13px;
@@ -146,7 +151,7 @@ input:checked + .slider:before {
 	cursor: pointer;
 	width: 107.5px;
 	box-shadow: inset 0 0 0 2px var(--watermark);
-	
+	/* removes border outlines on dragpanel */
 	border: none;
 	outline: none;
 	border-radius: 8px;
@@ -176,6 +181,7 @@ input:checked + .slider:before {
 	border-bottom: .2px solid var(--borders);
 	background-image: linear-gradient(to right, #00000000, #00000000, var(--secondary-hover));
 }
+/* end case of dragpanel */
 .dragpanel:after { /* State: menu is collapsed */
 	font-weight: bold;
 	padding-bottom: 6px;
@@ -184,6 +190,7 @@ input:checked + .slider:before {
 	/* top: 0px; */
 	float: right;
 }
+/* drag hover to clicked enlarges box */
 .drag:hover > .active {
 	max-width: 150px;
 }
@@ -196,7 +203,7 @@ input:checked + .slider:before {
 	box-shadow: 0px 8px 10px var(--shadow), 
 	-10px 8px 15px var(--canvas);
 }
-
+/* rotating animation for cog on settings box */
 @-webkit-keyframes rotating {
     from { -webkit-transform: rotate(0deg); }
     to { -webkit-transform: rotate(360deg); }
@@ -210,6 +217,7 @@ input:checked + .slider:before {
 	content: '\FF0D'; 
 	padding-bottom: 6px;
 }
+/* Main settings box row CSS*/
 .row { /* header for each submenu */
 	padding-top: 6.5px;
 	padding-bottom: -.5px;
@@ -228,6 +236,7 @@ input:checked + .slider:before {
 	transition: border-top var(--theme-transition) ease-out;
 	transition: border-bottom var(--theme-transition) ease-out;
 }
+/* CSS for bottom of row boxes */
 .rowend { /* footer */
 	padding-top: 8px;
 	min-height: 3px;
@@ -238,6 +247,7 @@ input:checked + .slider:before {
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius:8px;
 }
+/* menu wrapper */
 .menu { /* container for submenu items */
 	overflow-y: scroll;
 	opacity: var(--shade-fade);
@@ -273,7 +283,7 @@ input:checked + .slider:before {
 	border-top: .5px solid var(--primary-hover);
 	border-bottom: .5px solid var(--primary-hover);
 }
-
+/* CSS for blacklist box */
 textarea { /* text field */
 	outline: none;
 	/* background: radial-gradient(circle at bottom right, var(--list-bg) 1px, var(--textarea-bg) 20px); */
@@ -318,7 +328,7 @@ input[type="text"]:focus {
 	border-radius: 2px;
     border:1px solid var(--primary-hover);
 }
-
+/* webkit animation suite */
 .content:-webkitscrollbar { /* scrollbar */
 	display: none;
 }
@@ -384,12 +394,12 @@ input[type="text"]:focus {
 	border-style: solid;
 	border-color: transparent transparent transparent var(--submenu-bg);
 }
-
+/* on hover */
 .tooltip:hover .tooltiptext {
 	visibility: visible;
 }
 
-/* Ripple effect */
+/* Ripple effect on button clicks */
 .ripple {
   background-position: center;
   background-origin: 20%;
@@ -399,7 +409,7 @@ input[type="text"]:focus {
   background: var(--secondary-hover) radial-gradient(circle, transparent 1%, var(--secondary-hover) 2%) center/15000%;
   /* transition: background-color var(--fade-time); */
 }
-.ripple:active {
+.ripple:active { 	
   background-color: #525060; /* ripple color */
   background-size: 100%;
   transition: background 0s;
